@@ -198,6 +198,10 @@ void NXCompactMenu::menuUpDown(int direction) {
   displayMenu();
 }
 
+void NXCompactMenu::createMenuEntry(MENU *mnu, int index, const __FlashStringHelper *title, Fn handler) {
+  createMenuEntry(mnu, index, (__FlashStringHelper *)title, handler);
+}
+
 void NXCompactMenu::createMenuEntry(MENU *mnu, int index, __FlashStringHelper *title, Fn handler) {
   MENU_ENTRY *me = new MENU_ENTRY();
   memcpy(&mnu->entries[index], me, sizeof(MENU_ENTRY));
