@@ -54,6 +54,7 @@ class NXCompactMenu {
     void menuBack();
     void menuUpDown(int direction);
     void createMenuEntry(MENU *mnu, int index, __FlashStringHelper *title, Fn handler);
+    void createMenuEntry(MENU *mnu, int index, const __FlashStringHelper *title, Fn handler);
 
   private:
     char *versionNumber;
