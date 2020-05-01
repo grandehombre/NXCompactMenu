@@ -1,27 +1,27 @@
 /*
-  this example shows how to create a menu with multiple sub-menus
+  this example shows how to create a menu with multiple sub-menus. It has been tested on the RAM-constrained Arduino Nano
   
   The menu handler has been designed to work with small amounts of RAM, such as when using a Nano (2KB of RAM)
   All fixed strings are stored in PROGMEM and there is code in the menu library that handles them as needed.
 
+  1may2020, Nick Damoulakis
 
-  20feb2020, Nick Damoulakis
-*/
 
-/* 
 Note that none of this code is directly needed by the menu library. However, you will need to supply pointers to
 functions such as clearScreen(), setCursor() and printText() and those functions will need to access the display.
 To that end, they will need to use the 'oled' variable, created below.
-If your display driver is not shown here, that doesn't matter. Use whatever code is needed to create and initialise a display object
-such as the oled object below and use that in the menuSupport file to interact with the display. See menuSupport for more info
+If your display driver is not shown here, that doesn't matter. 
+Use whatever code is needed to create and initialise a display object such as the oled object below and use that 
+in the menuSupport file to interact with the display. See menuSupport for more info
 
-Nonen of the code in this file is specifically needed by the menu lib; just the display (oled) object.
+None of the code in this file is specifically needed by the menu lib; just the display (oled) object.
 
 The keyhandler shown in loop() simply monitors 4 switches (up, down, back and ok) and calls the relevant menu code.
 See keyHandler file for more info
 */ 
 
 // Uncomment the line that represents your display driver
+// ......................................................
 //#define LCD_IS_SH1106
 //#define LCD_IS_SSD1306
 #define LCD_IS_ST7789
@@ -42,7 +42,7 @@ See keyHandler file for more info
   #include <SPI.h>             // Arduino SPI library
   
   // ST7789 TFT module connections
-  #define TFT_CS     10
+  #define TFT_CS     -1
   #define TFT_RST    8  // define reset pin, or set to -1 and connect to Arduino RESET pin
   #define TFT_DC     9  // define data/command pin
   
