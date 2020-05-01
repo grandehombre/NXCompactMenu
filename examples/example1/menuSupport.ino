@@ -1,6 +1,6 @@
 
 // variable to hold the 4 possible power-level strings. This is only needed for this example
-__FlashStringHelper *powerText[4];
+const __FlashStringHelper *powerText[4];
 
 int fontHeight = -1;
 int displayLines = -1;
@@ -11,12 +11,12 @@ int displayHeight;
   Sample menu initialiser
 */
 void menuInit() {
-  mainMenu.title = (__FlashStringHelper *)F("Main menu");   // This text lives in PROGMEM...
+  mainMenu.title = F("Main menu");   // This text lives in PROGMEM...
   mainMenu.isShown = false;
   mainMenu.curPos = 0;
 
   // Define the number of entries and allocate memory based on that
-  mainMenu.count = 13;
+  mainMenu.count = 13;    // this is used further down to ensure you don't try to use more menu entries than you have allowed for
   mainMenu.entries = (MENU_ENTRY*)malloc(mainMenu.count * sizeof(MENU_ENTRY));
 
   int ctr = 0;
@@ -24,7 +24,7 @@ void menuInit() {
   // This menu has more entries than can fit in the 128x64 LCD I am using it with. This is done so it can demostrate menu scrolling.
   // ------------------------------------------------------------------------------------------------------------------------------
 
-  // This ctr check, is a safe way to ensure that you do not try to add more menus than you have allocated memory for.
+  // This ctr check is a safe way to ensure that you do not try to add more menus than you have allocated memory for.
   if (ctr < mainMenu.count) {
     // Create a menu entry, for menu mainMenu, index ctr, title to use, menu-entry handler pointer.
     // Menu handler functions are defined as:
@@ -34,61 +34,61 @@ void menuInit() {
     // I have intentionally created too many entries here so they will overflow small screens and you can then see the
     // auto-scroll behaviour in action.
 
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 1"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 1"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 2"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 2"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 3"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 3"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 4"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 4"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 5"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 5"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 6"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 6"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 7"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 7"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 8"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 8"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 9"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 9"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("menu 10"), &menuItemHandler1);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("menu 10"), &menuItemHandler1);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("Config menu"), &menuItemHandlerConfigMenu);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("Config menu"), &menuItemHandlerConfigMenu);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("PrintParams"), &menuItemHandlerPrintParamsMenu);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("PrintParams"), &menuItemHandlerPrintParamsMenu);
   }
 
   if (ctr < mainMenu.count) {
-    nixMenu.createMenuEntry(&mainMenu, ctr++, (__FlashStringHelper *)F("Exit menu"), NULL);
+    nixMenu.createMenuEntry(&mainMenu, ctr++, F("Exit menu"), NULL);
   }
 
 
   // .............. Config submenu
   // ..........................
-  configMenu.title = (__FlashStringHelper *)F("Config");
+  configMenu.title = F("Config");
   configMenu.isShown = false;
   configMenu.curPos = 0;
 
@@ -99,20 +99,20 @@ void menuInit() {
   ctr = 0;
 
   if (ctr < configMenu.count) {
-    nixMenu.createMenuEntry(&configMenu, ctr++, (__FlashStringHelper *)F("Set transmit power"), &menuItemHandlerConfigPwrMenu);
+    nixMenu.createMenuEntry(&configMenu, ctr++, F("Set transmit power"), &menuItemHandlerConfigPwrMenu);
   }
 
   if (ctr < configMenu.count) {
-    nixMenu.createMenuEntry(&configMenu, ctr++, (__FlashStringHelper *)F("Set channel"), &menuItemHandlerConfigChannelMenu);
+    nixMenu.createMenuEntry(&configMenu, ctr++, F("Set channel"), &menuItemHandlerConfigChannelMenu);
   }
 
   if (ctr < configMenu.count) {
-    nixMenu.createMenuEntry(&configMenu, ctr++, (__FlashStringHelper *)F("Save changes"), &menuItemHandlerConfigMenuSave);
+    nixMenu.createMenuEntry(&configMenu, ctr++, F("Save changes"), &menuItemHandlerConfigMenuSave);
   }
 
   // .............. Config submenu, set transmit power submenmu
   // ..........................
-  configMenuPwr.title = (__FlashStringHelper *)F("Transmit power");
+  configMenuPwr.title = F("Transmit power");
   configMenuPwr.isShown = false;
   configMenuPwr.curPos = 0;
 
@@ -151,7 +151,7 @@ void menuInit() {
   // .............. Config submenu, set channel submenu. Note that the title of first entry in this submenu is dynamically changed
   // ..........................
 
-  configMenuChannel.title = (__FlashStringHelper *)F("Channel");
+  configMenuChannel.title = F("Channel");
   configMenuChannel.isShown = false;
   configMenuChannel.curPos = 0;
   configMenuChannel.count = 3;
@@ -162,17 +162,17 @@ void menuInit() {
   if (ctr < configMenuChannel.count) {
     // allocate enough room in the title for a string like "Current channel xxx". menuItemHandlerConfigMenuGetChannel() will be
     // replacing the title text, whenever the Incr and Decr menus are invoked
-    nixMenu.createMenuEntry(&configMenuChannel, ctr, (__FlashStringHelper *)F("Current channel    "), &menuItemHandlerConfigMenuGetChannel);
+    nixMenu.createMenuEntry(&configMenuChannel, ctr, F("Current channel    "), &menuItemHandlerConfigMenuGetChannel);
     getCurChannelText(configMenuChannel, ctr);
     ctr++;
   }
 
   if (ctr < configMenuChannel.count) {
-    nixMenu.createMenuEntry(&configMenuChannel, ctr++, (__FlashStringHelper *)F("Incr channel"), &menuItemHandlerConfigMenuIncrChannel);
+    nixMenu.createMenuEntry(&configMenuChannel, ctr++, F("Incr channel"), &menuItemHandlerConfigMenuIncrChannel);
   }
 
   if (ctr < configMenuChannel.count) {
-    nixMenu.createMenuEntry(&configMenuChannel, ctr++, (__FlashStringHelper *)F("Decr channel"), &menuItemHandlerConfigMenuDecrChannel);
+    nixMenu.createMenuEntry(&configMenuChannel, ctr++, F("Decr channel"), &menuItemHandlerConfigMenuDecrChannel);
   }
 
 
@@ -470,5 +470,10 @@ char *getCurChannelText(MENU mnu, int index) {
 
 // Helper function needed in this example code. The menu lib does this on its own
 void printText_PF(__FlashStringHelper *msg) {
+  oled.print(msg);
+}
+
+// Helper function needed in this example code. The menu lib does this on its own
+void printText_PF(const __FlashStringHelper *msg) {
   oled.print(msg);
 }
